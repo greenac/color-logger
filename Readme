@@ -1,0 +1,2 @@
+color-logger will log to a file on your system if the environment variable COLOR_LOG_PATH is set.
+It also logs to the console.
