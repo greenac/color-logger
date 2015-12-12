@@ -1,6 +1,6 @@
 {
-  "name": "color-logger",
-  "version": "1.0.0",
+  "name": "gruew-logger",
+  "version": "1.0.2",
   "description": "\"logger console and file logger for node\"",
   "main": "entry.js",
   "scripts": {
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/greenac/color-logger#readme",
   "dependencies": {
-    "colors": "^1.1.2"
+    "colors": "^1.1.2",
+    "moment": "^2.10.6"
   }
 }

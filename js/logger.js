@@ -2,10 +2,19 @@
 
 var colors = require('colors');
 var fs = require('fs');
+var moment = require('moment');
+
 var logPath = process.env.COLOR_LOG_PATH || null;
 
-module.exports = function (message, fileName, isError, skipLine) {
-    var logMessage = new Date().toString() + ' ';
+/**
+ *
+ * @param messageParts - Array of Objects
+ * @param fileName - String
+ * @param isError - Boolean
+ * @param skipLine - Boolean
+ */
+module.exports = function (messageParts, fileName, isError, skipLine) {
+    var logMessage = moment().format() + ' ';
 
     if (fileName) {
         var fileParts = fileName.split('/');
@@ -16,7 +25,12 @@ module.exports = function (message, fileName, isError, skipLine) {
         logMessage += 'ERROR: ';
     }
 
-    logMessage += message;
+    for (var i=0; i < messageParts.length; i++) {
+        logMessage += JSON.stringify(messageParts[i]);
+        if (i !== messageParts.length - 1) {
+            logMessage += ' ';
+        }
+    }
 
     if (skipLine) {
         logMessage += '\n';
