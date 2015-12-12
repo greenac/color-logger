@@ -31,11 +31,11 @@ var logger = function (messageParts, fileName, isError, skipLine) {
             logMessage += part;
         } else {
             var jsonPart = JSON.stringify(part);
-            if (jsonPart.length > 1 && jsonPart[0] === '"') {
+            if (jsonPart && jsonPart.length > 1 && jsonPart[0] === '"') {
                 jsonPart = jsonPart.substring(1, jsonPart.length);
             }
 
-            if (jsonPart.length > 1 && jsonPart[jsonPart.length - 1] === '"') {
+            if (jsonPart && jsonPart.length > 1 && jsonPart[jsonPart.length - 1] === '"') {
                 jsonPart = jsonPart.substring(0, jsonPart.length - 1);
             }
 
