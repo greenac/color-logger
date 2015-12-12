@@ -13,7 +13,7 @@ var logPath = process.env.COLOR_LOG_PATH || null;
  * @param isError - Boolean
  * @param skipLine - Boolean
  */
-module.exports = function (messageParts, fileName, isError, skipLine) {
+var logger = function (messageParts, fileName, isError, skipLine) {
     var logMessage = moment().format() + ' ';
 
     if (fileName) {
@@ -26,7 +26,22 @@ module.exports = function (messageParts, fileName, isError, skipLine) {
     }
 
     for (var i=0; i < messageParts.length; i++) {
-        logMessage += JSON.stringify(messageParts[i]);
+        var part = messageParts[i];
+        if (typeof part === 'string' || part instanceof String) {
+            logMessage += part;
+        } else {
+            var jsonPart = JSON.stringify(part);
+            if (jsonPart.length > 1 && jsonPart[0] === '"') {
+                jsonPart = jsonPart.substring(1, jsonPart.length);
+            }
+
+            if (jsonPart.length > 1 && jsonPart[jsonPart.length - 1] === '"') {
+                jsonPart = jsonPart.substring(0, jsonPart.length - 1);
+            }
+
+            logMessage += jsonPart;
+        }
+
         if (i !== messageParts.length - 1) {
             logMessage += ' ';
         }
@@ -51,3 +66,14 @@ module.exports = function (messageParts, fileName, isError, skipLine) {
         });
     }
 };
+
+if (process.argv.length > 2 && process.argv[2] === 'testlogger') {
+    logger(
+        ['testing the logger with object: ', {message: 'Hi there. Just testing', times:3}, 'weeee'],
+        __filename,
+        false,
+        false
+    );
+}
+
+module.exports = logger;

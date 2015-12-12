@@ -1,6 +1,6 @@
 {
   "name": "gruew-logger",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "\"logger console and file logger for node\"",
   "main": "entry.js",
   "scripts": {
